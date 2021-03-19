@@ -11,7 +11,7 @@ Module.onRuntimeInitialized = async _ => {
 };
 
 var editor = ace.edit("editor");
-editor.setTheme("ace/theme/github");
+editor.setTheme("ace/theme/textmate");
 editor.setShowPrintMargin(false);
 editor.setValue("println(\"hello world\")", 1);
 editor.session.setMode("ace/mode/ape");
