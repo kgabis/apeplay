@@ -1,1 +1,76 @@
-hello world
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon" 
+            type="image/png" 
+            href="favicon.png" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Ape Playground</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">  
+</head>
+<body>
+
+<div id="top-bar">
+    <a href="." style="text-decoration:none; margin: 10px; font-size: 32px; font-family: monospace;">Ape Playground</a>
+    <a class="" style="float:right; margin-right:7px; margin-top: 7px;" href="https://github.com/kgabis/ape" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" class="navbar-nav-svg d-inline-block align-text-top" viewBox="0 0 512 499.36" role="img"><title>GitHub</title><path fill="currentColor" fill-rule="evenodd" d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"></path></svg>
+      </a>
+</div>
+
+<div id="learn-more-bar">
+    <div style="padding: 2px">Ape is an easy to use and embed programming language. Click <a href="https://github.com/kgabis/ape">here</a> to learn more about it!</div>
+</div>
+
+<div id="editor-output-container">
+    <div id="editor-wrapper">
+        <pre id="editor" class="rounded">
+        </pre>
+        <div id="editor-buttons-left" style="float:left;">            
+            <!-- <button id="clear-button" class="btn btn-danger" type="button">Clear</button> -->
+        </div>
+        <div id="editor-buttons-right" style="float:right;">
+            <button id="save-button" class="btn btn-primary" type="button">
+                Save to file&nbsp;
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16" style="margin-top: -3px;">
+                    <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+                </svg>
+            </button>
+            <button id="run-button" class="btn btn-primary" type="button">
+                Run&nbsp;
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16" style="margin-top: -3px;">
+                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div id="output-wrapper">
+        <pre id="output" class="rounded">  
+        </pre>
+    </div>
+</div>
+
+<div style="clear: left"></div>
+<div class="hr-sect">Examples</div>
+
+<div style="clear:left; align-content: center; width: 90%; margin: auto">
+<ul id="list-col0" class="list-group" style="width: 33%; float:left;"></ul>
+<ul id="list-col1" class="list-group" style="width: 33%; float:left;"></ul>
+<ul id="list-col2" class="list-group" style="width: 33%; float:left;"></ul>
+</div>
+
+<script src="ape.js"></script>
+<script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="examples.js" type="text/javascript" charset="utf-8"></script>
+<script src="ace_ape_rules.js" type="text/javascript" charset="utf-8"></script>
+<script src="index.js" type="text/javascript" charset="utf-8"></script>
+
+<div style="clear: left;" class="hr-sect">Made by&nbsp;<a href="https://twitter.com/kzgabis" style="text-decoration: none;">Krzysztof Gabis</a></div>
+
+</body>
+</html>
