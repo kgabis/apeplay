@@ -42,6 +42,15 @@ bool execute(const char *str) {
 }
 
 EMSCRIPTEN_KEEPALIVE
+bool compile(const char *str) {
+    ape_compile(g.ape, str);
+    if (ape_has_errors(g.ape)) {
+        return false;
+    }
+    return true;
+}
+
+EMSCRIPTEN_KEEPALIVE
 void clear_stdout() {
     if (g.ape_out) {
         g.ape_out[0] = '\0';
@@ -69,6 +78,24 @@ const char* get_error_string_at(int ix) {
     }
     free(err_string);
     return g.error_buf;
+}
+
+EMSCRIPTEN_KEEPALIVE
+int get_error_column_at(int ix) {
+    const ape_error_t *err = ape_get_error(g.ape, ix);
+    if (!err) {
+        return -1;
+    }
+    return ape_error_get_column_number(err);
+}
+
+EMSCRIPTEN_KEEPALIVE
+int get_error_line_at(int ix) {
+    const ape_error_t *err = ape_get_error(g.ape, ix);
+    if (!err) {
+        return -1;
+    }
+    return ape_error_get_line_number(err);
 }
 
 size_t stdout_write(void* context, const void *data, size_t data_size) {

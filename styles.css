@@ -99,3 +99,9 @@ color: lightgray;
     line-height: 0px;
     margin: 0px 8px;
 }
+
+.warning-marker {
+    position:absolute;
+    background:#E85641;
+    z-index:20
+}
