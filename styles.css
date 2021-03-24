@@ -59,11 +59,11 @@ color: lightgray;
 }
 
 #editor {
-    height: 400px;
+    height: 500px;
 }
 
 #output {
-    height: 400px;
+    height: 500px;
 }
 #editor-wrapper {
     float: left;

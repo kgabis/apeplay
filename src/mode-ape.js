@@ -358,14 +358,6 @@ define("ace/mode/ape_highlight_rules",["require","exports","module","ace/lib/oop
     function comments(next) {
         return [
             {
-                token : "comment", // multi line comment
-                regex : /\/\*/,
-                next: [
-                    DocCommentHighlightRules.getTagRule(),
-                    {token : "comment", regex : "\\*\\/", next : next || "pop"},
-                    {defaultToken : "comment", caseInsensitive: true}
-                ]
-            }, {
                 token : "comment",
                 regex : "\\/\\/",
                 next: [
@@ -581,7 +573,6 @@ define("ace/mode/ape",["require","exports","module","ace/lib/oop","ace/mode/text
     (function() {
     
         this.lineCommentStart = "//";
-        this.blockComment = {start: "/*", end: "*/"};
         this.$quotes = {'"': '"', "'": "'",};
     
         this.getNextLineIndent = function(state, line, tab) {
@@ -625,6 +616,7 @@ define("ace/mode/ape",["require","exports","module","ace/lib/oop","ace/mode/text
         };
     
         this.$id = "ace/mode/ape";
+        this.snippetFileId = "ace/snippets/ape";
     }).call(Mode.prototype);
     
     exports.Mode = Mode;

@@ -1,5 +1,79 @@
-var examples = [
-`fn make_person(name) {
+var examples = {
+col0: [
+`// Basic operations
+var x = 1 // this is a variable
+const y = 2 // this is a constant
+
+// if/else if/else
+if (x == 1) {
+    // branch 1
+} else if (x == 2) {
+    // branch 2
+} else {
+    // branch 3
+}
+
+// while loop
+while (x < 10) {
+    x += 1
+}
+
+// creating and iterating arrays
+var array = [1, 2, 3]
+for (item in array) { // foreach
+    println(item)
+}
+
+// for loop
+for (var i = 0; i < len(array); i += 1) {
+    // string concatenation
+    var str = "number: " + to_str(array[i]) 
+    println(str)
+}
+
+// creating and iterating maps
+var map = {
+    "lorem": "ipsum",
+    dolor: 2,
+    3: false, // numbers can be keys too
+    true: 1 // booleans as well
+}
+
+println(map.lorem)
+println(map["dolor"])
+
+for (kvp in map) {
+    print("key: " + to_str(kvp.key) + ", ")
+    print("value: " + to_str(kvp.value) + "\\n")
+}
+`,
+`// Recursion
+fn fibo(x) {
+    if (x == 0) {
+        return 0
+    } else if (x == 1) {
+        return 1
+    } else {
+        return fibo(x - 1) + fibo(x - 2)
+    }
+}
+println(fibo(20))`,
+],
+col1: [
+`// Functions
+// this is a function
+var fun = fn() { return 0 }
+// this is also a function
+fn add2(x) { return x + 2 }
+
+// functions can be passed as values
+fn f3(f, a) { return f(a) }
+println(f3(add2, 3))
+println(f3(fn(x){ return x + 3 }, 2))
+`,
+
+`// Creating objects using builtin map type
+fn make_person(name) {
     return {
         name: name,
         hello_count: 0,
@@ -14,21 +88,13 @@ const person = make_person("Mati")
 person.greet()
 person.greet()`,
 
-`fn fibo(x) {
-    if (x == 0) {
-        return 0;
-    } else if (x == 1) {
-        return 1;
-    } else {
-        return fibo(x - 1) + fibo(x - 2);
-    }
-}
-println(fibo(20));`,
-`const err = error("something bad happened")
+`// Handling errors
+const err = error("something bad happened")
 if (is_error(err)) {
     println(err)
 }
 
+// crash/recover when something really bad happens
 fn() {
     // e is a runtime error wrapped in error
     recover (e) {
@@ -37,10 +103,10 @@ fn() {
     // crashes are recovered with "recover" statement
     crash("something bad happened") 
 }()`,
-`for (var i = 0; i < 10; i += 1) {
-    println("hello " + to_str(i))
-}`,
-`fn vec2(x, y) {
+],
+col2: [
+`// Operator overloading
+fn vec2(x, y) {
     return {
         x: x,
         y: y,
@@ -68,6 +134,7 @@ var a = vec2(2, 1)
 var b = vec2(10, 13)
 var c = a + b
 println(to_str(c.x) + " " + to_str(c.y))`,
+
 `fn is_prime(n) {
     var i = 2
     while (i < n) {
@@ -91,6 +158,7 @@ fn nth_prime(n) {
     return candidate - 1
 }
 
-const prime = nth_prime(100);
+const prime = nth_prime(100)
 println(prime)`
-];
+]
+};

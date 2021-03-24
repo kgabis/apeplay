@@ -18,6 +18,8 @@ Module.onRuntimeInitialized = async _ => {
     editor.setValue("println(\"hello world\")", 1);
     editor.session.setMode("ace/mode/ape");
 
+    editor.commands.removeCommand('gotoline');
+
     editor.commands.addCommand({
         name: 'save',
         bindKey: { win: "Ctrl-S", "mac": "Cmd-S" },
@@ -128,18 +130,16 @@ Module.onRuntimeInitialized = async _ => {
     }
 
     // Add examples
-    function addExample(txt) {
+    function addExample(col, txt) {
         const pre = document.createElement('pre');
         pre.className = 'list-group-item btn btn-light code-button';
         pre.innerHTML = txt
         document.getElementById('list-col' + col).appendChild(pre);
-        col++;
-        if (col == 3) {
-            col = 0;
-        }
     }
-    var col = 0;
-    examples.forEach(element => addExample(element));
+    
+    examples.col0.forEach(element => addExample(0, element));
+    examples.col1.forEach(element => addExample(1, element));
+    examples.col2.forEach(element => addExample(2, element));
 
     function htmlDecode(input) {
         var e = document.createElement('div');
