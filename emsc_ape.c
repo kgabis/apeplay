@@ -28,6 +28,8 @@ bool init() {
     if (!g.ape) {
         return false;
     }
+    bool res = ape_set_max_execution_time(g.ape, 500);
+    assert(res);
     ape_set_stdout_write_function(g.ape, stdout_write, NULL);
     return true;
 }
