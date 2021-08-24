@@ -28,7 +28,7 @@ bool init() {
     if (!g.ape) {
         return false;
     }
-    bool res = ape_set_max_execution_time(g.ape, 500);
+    bool res = ape_set_timeout(g.ape, 500);
     assert(res);
     ape_set_stdout_write_function(g.ape, stdout_write, NULL);
     return true;
@@ -73,12 +73,12 @@ int get_error_count() {
 EMSCRIPTEN_KEEPALIVE
 const char* get_error_string_at(int ix) {
     const ape_error_t *err = ape_get_error(g.ape, ix);
-    char *err_string = ape_error_serialize(err);
+    char *err_string = ape_error_serialize(g.ape, err);
     if ((strlen(err_string) + 1) < ERROR_BUF_SIZE) {
         g.error_buf[0] = '\0';
         strcat(g.error_buf, err_string);
     }
-    free(err_string);
+    ape_free_allocated(g.ape, err_string);
     return g.error_buf;
 }
 

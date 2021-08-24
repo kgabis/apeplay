@@ -88,7 +88,7 @@ Module.onRuntimeInitialized = async _ => {
         var d = new Date();
         var d_str = d.getFullYear() + "_" + d.getMonth() + "_" + d.getDay() + "_" +
             d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-        var filename = "ape_playground_" + d_str + ".bn";
+        var filename = "ape_playground_" + d_str + ".ape";
         var file = new Blob([editor.getValue()], { type: 'text/plain' });
         if (window.navigator.msSaveOrOpenBlob) // IE10+
             window.navigator.msSaveOrOpenBlob(file, filename);

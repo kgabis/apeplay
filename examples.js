@@ -19,15 +19,15 @@ while (x < 10) {
 }
 
 // creating and iterating arrays
-var array = [1, 2, 3]
-for (item in array) { // foreach
+var arr = [1, 2, 3]
+for (item in arr) { // foreach
     println(item)
 }
 
 // for loop
-for (var i = 0; i < len(array); i += 1) {
+for (var i = 0; i < len(arr); i += 1) {
     // string concatenation
-    var str = "number: " + to_str(array[i]) 
+    var str = "number: " + to_str(arr[i]) 
     println(str)
 }
 
@@ -43,9 +43,9 @@ println(map.lorem)
 println(map["dolor"])
 
 for (kvp in map) {
-    print("key: " + to_str(kvp.key) + ", ")
-    print("value: " + to_str(kvp.value) + "\\n")
+    print(\`key: \${kvp.key}, value: \${kvp.value}\n\`)
 }
+
 `,
 `// Recursion
 fn fibo(x) {
@@ -78,8 +78,7 @@ fn make_person(name) {
         name: name,
         hello_count: 0,
         greet: fn() {
-            println("Hello " + to_str(this.hello_count)
-                + ", I'm " + this.name)
+            println(\`Hello \${this.hello_count}, I'm \${this.name}\`)
             this.hello_count += 1
         },
     }
@@ -133,8 +132,7 @@ fn vec2(x, y) {
 var a = vec2(2, 1)
 var b = vec2(10, 13)
 var c = a + b
-println(to_str(c.x) + " " + to_str(c.y))`,
-
+println(\`\${c.x} \${c.y}\`)`,
 `fn is_prime(n) {
     var i = 2
     while (i < n) {

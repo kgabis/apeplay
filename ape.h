@@ -44,10 +44,10 @@ extern "C"
 #endif
 
 #define APE_VERSION_MAJOR 0
-#define APE_VERSION_MINOR 8
-#define APE_VERSION_PATCH 0
+#define APE_VERSION_MINOR 12
+#define APE_VERSION_PATCH 1
 
-#define APE_VERSION_STRING "0.8.0"
+#define APE_VERSION_STRING "0.12.1"
 
 typedef struct ape ape_t;
 typedef struct ape_object { uint64_t _internal; } ape_object_t;
@@ -60,7 +60,8 @@ typedef enum ape_error_type {
     APE_ERROR_PARSING,
     APE_ERROR_COMPILATION,
     APE_ERROR_RUNTIME,
-    APE_ERROR_OUT_OF_TIME,
+    APE_ERROR_TIMEOUT,
+    APE_ERROR_ALLOCATION,
     APE_ERROR_USER, // from ape_add_error() or ape_add_errorf()
 } ape_error_type_t;
 
@@ -81,8 +82,8 @@ typedef enum ape_object_type {
 } ape_object_type_t;
 
 typedef ape_object_t (*ape_native_fn)(ape_t *ape, void *data, int argc, ape_object_t *args);
-typedef void*        (*ape_malloc_fn)(size_t size);
-typedef void         (*ape_free_fn)(void *ptr);
+typedef void*        (*ape_malloc_fn)(void *ctx, size_t size);
+typedef void         (*ape_free_fn)(void *ctx, void *ptr);
 typedef void         (*ape_data_destroy_fn)(void* data);
 typedef void*        (*ape_data_copy_fn)(void* data);
 
@@ -93,18 +94,19 @@ typedef size_t (*ape_write_file_fn)(void* context, const char *path, const char 
 //-----------------------------------------------------------------------------
 // Ape API
 //-----------------------------------------------------------------------------
-void ape_set_memory_functions(ape_malloc_fn malloc_fn, ape_free_fn free_fn);
-
 ape_t* ape_make(void);
+ape_t* ape_make_ex(ape_malloc_fn malloc_fn, ape_free_fn free_fn, void *ctx);
 void   ape_destroy(ape_t *ape);
+
+void   ape_free_allocated(ape_t *ape, void *ptr);
 
 void ape_set_repl_mode(ape_t *ape, bool enabled);
 
 // -1 to disable, returns false if it can't be set for current platform (otherwise true).
-// If execution time exceeds given limit an APE_ERROR_OUT_OF_TIME error is set.
+// If execution time exceeds given limit an APE_ERROR_TIMEOUT error is set.
 // Precision is not guaranteed because time can't be checked every VM tick
 // but expect it to be submilisecond.
-bool ape_set_max_execution_time(ape_t *ape, double max_execution_time_ms);
+bool ape_set_timeout(ape_t *ape, double max_execution_time_ms);
 
 void ape_set_stdout_write_function(ape_t *ape, ape_stdout_write_fn stdout_write, void *context);
 void ape_set_file_write_function(ape_t *ape, ape_write_file_fn file_write, void *context);
@@ -130,6 +132,7 @@ void ape_set_runtime_error(ape_t *ape, const char *message);
 void ape_set_runtime_errorf(ape_t *ape, const char *format, ...) __attribute__ ((format (printf, 2, 3)));
 bool ape_has_errors(const ape_t *ape);
 int  ape_errors_count(const ape_t *ape);
+void ape_clear_errors(ape_t *ape);
 const ape_error_t* ape_get_error(const ape_t *ape, int index);
 
 bool ape_set_native_function(ape_t *ape, const char *name, ape_native_fn fn, void *data);
@@ -162,12 +165,14 @@ ape_object_t ape_object_make_error(ape_t *ape, const char *message);
 ape_object_t ape_object_make_errorf(ape_t *ape, const char *format, ...) __attribute__ ((format (printf, 2, 3)));
 ape_object_t ape_object_make_external(ape_t *ape, void *data);
 
-char* ape_object_serialize(ape_object_t obj);
+char* ape_object_serialize(ape_t *ape, ape_object_t obj);
 
-void ape_object_disable_gc(ape_object_t obj);
+bool ape_object_disable_gc(ape_object_t obj);
 void ape_object_enable_gc(ape_object_t obj);
 
 bool ape_object_equals(ape_object_t a, ape_object_t b);
+
+bool ape_object_is_null(ape_object_t obj);
 
 ape_object_t ape_object_copy(ape_object_t obj);
 ape_object_t ape_object_deep_copy(ape_object_t obj);
@@ -241,7 +246,7 @@ int              ape_error_get_column_number(const ape_error_t *error);
 ape_error_type_t ape_error_get_type(const ape_error_t *error);
 const char*      ape_error_get_type_string(const ape_error_t *error);
 const char*      ape_error_type_to_string(ape_error_type_t type);
-char*            ape_error_serialize(const ape_error_t *error);
+char*            ape_error_serialize(ape_t *ape, const ape_error_t *error);
 const ape_traceback_t* ape_error_get_traceback(const ape_error_t *error);
 
 //-----------------------------------------------------------------------------
