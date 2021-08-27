@@ -15,7 +15,7 @@ if (x == 1) {
 
 // while loop
 while (x < 10) {
-    x += 1
+    x++
 }
 
 // creating and iterating arrays
@@ -25,7 +25,7 @@ for (item in arr) { // foreach
 }
 
 // for loop
-for (var i = 0; i < len(arr); i += 1) {
+for (var i = 0; i < len(arr); i++) {
     // string concatenation
     var str = "number: " + to_str(arr[i]) 
     println(str)
@@ -79,7 +79,7 @@ fn make_person(name) {
         hello_count: 0,
         greet: fn() {
             println(\`Hello \${this.hello_count}, I'm \${this.name}\`)
-            this.hello_count += 1
+            this.hello_count++
         },
     }
 }
@@ -139,7 +139,7 @@ println(\`\${c.x} \${c.y}\`)`,
         if (n % i == 0) {
             return false
         }
-        i += 1
+        i++
     }
     return true
 }
@@ -149,9 +149,9 @@ fn nth_prime(n) {
     var count = 0
     while (count < n) {
         if (is_prime(candidate)) {
-            count += 1
+            count++
         }
-        candidate += 1
+        candidate++
     }
     return candidate - 1
 }
